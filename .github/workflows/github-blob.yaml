@@ -15,6 +15,9 @@ permissions:
 jobs:
     upload:
         runs-on: ubuntu-latest
+        env:
+            ACR_USERNAME: '@@ksa:acr-username'
+            ACR_PASS: '@@ksa:acr-pass'
 
         steps:
             - name: Checkout Code
@@ -38,10 +41,7 @@ jobs:
               uses: theotow/keyvault-secret-azure@v1
               with:
                 key-vault-name: ${{ secrets.KEYVAULT_NAME }}    
-                config: |
-                    {"ACR_USERNAME": "acr-username"}
-                    {"ACR_PASS": "acr-pass"}
-            
+            - run: echo "ACR_USERNAME=${{ secrets.ACR_USERNAME }}" >> $GITHUB_ENV
 
             - name: Login to ACR
               run: |
