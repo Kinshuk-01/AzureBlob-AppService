@@ -34,24 +34,29 @@ jobs:
                 tenant-id: ${{ secrets.AZURE_TENANT_ID }}
                 subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-            - name: Fetch secrets from Key Vault
-              uses: vinayaja/keyvault-secrets@v1.0.1
-              with:
-                keyvault-name: 'implocker'
-                secret-names: 'acr-username,acr-pass'
+            - name: Get secrets from Azure Key Vault
+              run: |
+                ACR_USERNAME=$(az keyvault secret show \
+                  --vault-name my-key-vault \
+                  --name acr-username \
+                  --query value -o tsv)
+                ACR_PASS=$(az keyvault secret show \
+                  --vault-name my-key-vault \
+                  --name acr-pass \
+                  --query value -o tsv)
               
             - name: Login to ACR
               run: |
-                az acr login --name $acr-username
+                az acr login --name $ACR_USERNAME
 
             - name: Docker login to ACR
               run: |
-                docker login $acr-username.azurecr.io \
-                -u $acr-username \
-                -p $acr-pass
+                docker login $ACR_USERNAME.azurecr.io \
+                -u $ACR_USERNAME \
+                -p $ACR_PASS
 
             - name: Push Docker Image to ACR
               run: |
-                docker tag $APP_NAME:$IMAGE_TAG $acr-username.azurecr.io/$APP_NAME:$IMAGE_TAG
-                docker push $acr-username.azurecr.io/$APP_NAME:$IMAGE_TAG 
+                docker tag $APP_NAME:$IMAGE_TAG $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG
+                docker push $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG 
 
