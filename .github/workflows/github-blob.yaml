@@ -37,7 +37,7 @@ jobs:
             - name: Fetch secrets from Key Vault
               uses: azure/keyvault-secrets@v1
               with:
-                keyvault: my-key-vault
+                keyvault: implocker
                 secrets: |
                    ACR_NAME
                    ACR_PASSWORD
