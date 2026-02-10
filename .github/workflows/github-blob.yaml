@@ -37,7 +37,7 @@ jobs:
             - name: Fetch secrets from Key Vault
               uses: theotow/keyvault-secret-azure@v1
               with:
-                keyvault: implocker
+                key-vault-name: implocker
                 config: |
                     {"ACR_NAME": "ACR-NAME", 
                     "ACR_PASSWORD": "ACR-PASSWORD"}
