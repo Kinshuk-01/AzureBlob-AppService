@@ -35,26 +35,23 @@ jobs:
                 subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
             - name: Fetch secrets from Key Vault
-              uses: theotow/keyvault-secret-azure@v1
+              uses: vinayaja/keyvault-secrets@v1.0.1
               with:
-                key-vault-name: ${{ secrets.KEYVAULT_NAME }}    
-                config: |
-                    {"ACR_USERNAME": "acr-username"}
-            - run: echo "ACR_USERNAME=${{ secrets.ACR_USERNAME }}" >> $GITHUB_ENV
-            
-
+                keyvault-name: 'implocker'
+                secret-names: 'acr-username,acr-pass'
+              
             - name: Login to ACR
               run: |
-                az acr login --name $ACR_USERNAME
+                az acr login --name $acr-username
 
             - name: Docker login to ACR
               run: |
-                docker login $ACR_USERNAME.azurecr.io \
-                -u $ACR_USERNAME \
-                -p $$ACR_PASS 
+                docker login $acr-username.azurecr.io \
+                -u $acr-username \
+                -p $acr-pass
 
             - name: Push Docker Image to ACR
               run: |
-                docker tag $APP_NAME:$IMAGE_TAG $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG
-                docker push $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG 
+                docker tag $APP_NAME:$IMAGE_TAG $acr-username.azurecr.io/$APP_NAME:$IMAGE_TAG
+                docker push $acr-username.azurecr.io/$APP_NAME:$IMAGE_TAG 
 
