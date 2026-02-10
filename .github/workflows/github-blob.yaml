@@ -39,7 +39,8 @@ jobs:
               with:
                 key-vault-name: ${{ secrets.KEYVAULT_NAME }}    
                 config: |
-                    {"ACR_USERNAME": "acr-username", "ACR_PASS": "acr-pass"}
+                    {"ACR_USERNAME": "acr-username"}
+                    {"ACR_PASS": "acr-pass"}
             
 
             - name: Login to ACR
