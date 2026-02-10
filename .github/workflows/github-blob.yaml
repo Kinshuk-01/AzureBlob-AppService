@@ -68,3 +68,9 @@ jobs:
                 docker tag $APP_NAME:$IMAGE_TAG $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG
                 docker push $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG 
 
+            - name: Deploy to Azure App Service
+              uses: azure/webapps-deploy@v3
+              with:
+                app-name: LibraryManagement
+                images: $ACR_LOGIN_SERVER/myapp:latest
+
