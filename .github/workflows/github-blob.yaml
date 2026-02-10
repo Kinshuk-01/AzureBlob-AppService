@@ -48,6 +48,8 @@ jobs:
                   --vault-name implocker \
                   --name acr-pass \
                   --query value -o tsv)
+            - run: echo "ACR_USERNAME=$ACR_USERNAME"
+            - run: echo "ACR_PASS=$ACR_PASS"
               
             - name: Login to ACR
               run: |
