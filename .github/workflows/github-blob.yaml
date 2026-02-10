@@ -37,11 +37,11 @@ jobs:
             - name: Get secrets from Azure Key Vault
               run: |
                 ACR_USERNAME=$(az keyvault secret show \
-                  --vault-name my-key-vault \
+                  --vault-name implocker \
                   --name acr-username \
                   --query value -o tsv)
                 ACR_PASS=$(az keyvault secret show \
-                  --vault-name my-key-vault \
+                  --vault-name implocker \
                   --name acr-pass \
                   --query value -o tsv)
               
