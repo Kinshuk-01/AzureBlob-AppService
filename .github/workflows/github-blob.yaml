@@ -72,5 +72,5 @@ jobs:
               uses: azure/webapps-deploy@v3
               with:
                 app-name: LibraryManagement
-                images: flaskAppRegistory.azurecr.io/${{ env.APP_NAME }}:${{ env.IMAGE_TAG }}
+                images: $ACR_LOGIN_SERVER/$APP_NAME:$IMAGE_TAG
 
