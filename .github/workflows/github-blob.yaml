@@ -73,13 +73,10 @@ jobs:
               with:
                 app-name: LibraryManagement
                 images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.APP_NAME }}:${{ env.IMAGE_TAG }}
-
-            - name: Generate dummy text file
-              run: |
-                echo "Developed and Automated by: Kinshuk Chauhan" > document.txt
-            
+              
             - name: Upload file to Blob Storage
               run: |
+                echo "Developed and Automated by: Kinshuk Chauhan" > document.txt
                 az storage blob upload \
                   --account-name $STORAGE_ACCOUNT_NAME \
                   --container-name $BLOB_CONTAINER_NAME \
