@@ -87,6 +87,6 @@ jobs:
             - uses: runlyio/azure-versioned-storage@v2
               with:
                 sourceDir: document.txt
-                version: v${{ steps.pkg.outputs.version }}
                 container: $BLOB_CONTAINER_NAME
                 connectionString: $STORAGE_ACCOUNT_NAME
+                overwrite: true
