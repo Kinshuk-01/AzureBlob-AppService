@@ -83,3 +83,4 @@ jobs:
                   --file document.txt \
                   --name document.txt \
                   --auth-mode login
+                  -- overwrite true
