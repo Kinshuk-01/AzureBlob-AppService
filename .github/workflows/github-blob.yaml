@@ -81,6 +81,5 @@ jobs:
                   --account-name $STORAGE_ACCOUNT_NAME \
                   --container-name $BLOB_CONTAINER_NAME \
                   --file document.txt \
-                  --name document.txt \
+                  --name document-$(date +%s).txt \
                   --auth-mode login
-                  -- overwrite true
