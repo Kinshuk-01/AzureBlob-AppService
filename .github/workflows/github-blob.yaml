@@ -77,16 +77,9 @@ jobs:
             - name: Upload file to Blob Storage
               run: |
                 echo "Developed and Automated by: Kinshuk Chauhan" > document.txt
-                # az storage blob upload \
-                #   --account-name $STORAGE_ACCOUNT_NAME \
-                #   --container-name $BLOB_CONTAINER_NAME \
-                #   --file document.txt \
-                #   --name document-$(date +%s).txt \
-                #   --auth-mode login
-
-            - uses: runlyio/azure-versioned-storage@v2
-              with:
-                sourceDir: document.txt
-                container: $BLOB_CONTAINER_NAME
-                connectionString: $STORAGE_ACCOUNT_NAME
-                overwrite: 'true'
+                az storage blob upload \
+                  --account-name $STORAGE_ACCOUNT_NAME \
+                  --container-name $BLOB_CONTAINER_NAME \
+                  --file document.txt \
+                  --name document-$(date +%s).txt \
+                  --auth-mode login
