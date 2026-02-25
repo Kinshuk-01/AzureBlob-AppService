@@ -55,12 +55,15 @@ jobs:
     needs: build
 
     steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        
       - name: Get secrets from GitHub Secrets
         id: get-azure-keyvault-secrets
         uses: copdips/get-azure-keyvault-secrets-action@v1
         with:
           keyvault: flask-app-locker
-          
+
       - name: Pull image for validation
         run: |
           docker pull $ACR_LOGIN_SERVER/$APP_NAME:$IMAGE_TAG
