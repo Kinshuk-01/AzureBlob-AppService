@@ -40,12 +40,12 @@ jobs:
             #       --vault-name implocker \
             #       --name acr-username \
             #       --query value -o tsv)
-            #     ACR_PASS=$(az keyvault secret show \
-            #       --vault-name implocker \
-            #       --name acr-pass \
+            #     ACR_PASSWORD=$(az keyvault secret show \
+            #       --vault-name flask-app-locker \
+            #       --name acr-password \
             #       --query value -o tsv)
             #     echo "ACR_USERNAME=$ACR_USERNAME" >> $GITHUB_ENV
-            #     echo "ACR_PASS=$ACR_PASS" >> $GITHUB_ENV
+            #     echo "ACR_PASSWORD=$ACR_PASSWORD" >> $GITHUB_ENV
 
             - name: Get secrets from GitHub Secrets
               id: get-azure-keyvault-secrets
@@ -61,7 +61,7 @@ jobs:
               run: |
                 docker login $ACR_USERNAME.azurecr.io \
                 -u $ACR_USERNAME \
-                -p $ACR_PASS
+                -p $ACR_PASSWORD
 
             - name: Push Docker Image to ACR
               run: |
