@@ -23,9 +23,9 @@ jobs:
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
 
-            - name: Build Docker Image
-              run: |
-                docker build -t $APP_NAME:$IMAGE_TAG .
+            # - name: Build Docker Image
+            #   run: |
+            #     docker build -t $APP_NAME:$IMAGE_TAG .
 
             - name: Azure Login (OIDC)
               uses: azure/login@v2
@@ -57,22 +57,30 @@ jobs:
               run: |
                 az acr login --name $ACR_USERNAME
 
-            - name: Docker login to ACR
-              run: |
-                docker login $ACR_USERNAME.azurecr.io \
-                -u $ACR_USERNAME \
-                -p $ACR_PASSWORD
+            # - name: Docker login to ACR
+            #   run: |
+            #     docker login $ACR_USERNAME.azurecr.io \
+            #     -u $ACR_USERNAME \
+            #     -p $ACR_PASSWORD
 
-            - name: Push Docker Image to ACR
+            # - name: Push Docker Image to ACR
+            #   run: |
+            #     docker tag $APP_NAME:$IMAGE_TAG $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG
+            #     docker push $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG 
+                
+            - name: Build and push Docker image
               run: |
-                docker tag $APP_NAME:$IMAGE_TAG $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG
-                docker push $ACR_USERNAME.azurecr.io/$APP_NAME:$IMAGE_TAG 
+                docker buildx build \
+                  --platform linux/amd64 \
+                  -t $ACR_LOGIN_SERVER/$APP_NAME:$IMAGE_TAG \
+                  --push .
 
             - name: Deploy to Azure App Service
               uses: azure/webapps-deploy@v3
               with:
-                app-name: LibraryManagement
+                app-name: librarymanagement
                 images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.APP_NAME }}:${{ env.IMAGE_TAG }}
+
               
             # - name: Upload file to Blob Storage
             #   run: |
