@@ -73,7 +73,7 @@ jobs:
 
       - name: Login to Azure Container Registry
         run: |
-          az acr login --name $ACR_NAME
+          az acr login --name $ACR_USERNAME
 
       - name: Pull image for validation
         run: |
