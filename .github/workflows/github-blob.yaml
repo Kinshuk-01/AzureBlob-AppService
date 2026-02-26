@@ -3,6 +3,12 @@ name: Deploy to Azure App Service
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      target_env:
+        type: choice
+        options: [DEV, UAT]
+        required: true
 
 env:
   TARGET_ENV: UAT
@@ -54,9 +60,7 @@ jobs:
     name: Smoke Test Image
     runs-on: ubuntu-latest
     needs: build
-
-    environment:
-      name: UAT
+    if: inputs.target_env == 'UAT'
 
     steps:
       - name: Checkout source code
