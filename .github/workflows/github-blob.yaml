@@ -103,7 +103,7 @@ jobs:
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
-          app-name: LibraryManagement
+          app-name: librarymanagement
           images: librarycontainer.azurecr.io/flask-app:1153530646
 
           
