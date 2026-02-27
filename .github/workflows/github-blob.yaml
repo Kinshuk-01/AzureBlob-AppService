@@ -54,7 +54,8 @@ jobs:
     name: Smoke Test Image
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ always() && github.TARGET_ENV == 'UAT' }}
+    if: ${{ github.TARGET_ENV == 'UAT' }}
+    environment: UAT
 
     steps:
       - name: Checkout source code
