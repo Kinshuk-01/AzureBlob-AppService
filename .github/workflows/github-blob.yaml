@@ -38,11 +38,12 @@ jobs:
         id: get-azure-keyvault-secrets
         uses: copdips/get-azure-keyvault-secrets-action@v1
         with:
-          keyvault: flask-app-locker
+          keyvault: ${{ secrets.KEYVAULT_NAME }}
               
       - name: Login to ACR
         run: |
           az acr login --name $ACR_USERNAME
+          echo "environment: ${{ github.ref_name == 'main' && 'UAT' || 'DEV' }}"
  
       - name: Build and push Docker image
         run: |
@@ -73,7 +74,7 @@ jobs:
         id: get-azure-keyvault-secrets
         uses: copdips/get-azure-keyvault-secrets-action@v1
         with:
-          keyvault: $KEYVAULT_NAME
+          keyvault: ${{ secrets.KEYVAULT_NAME }}
 
       - name: Login to Azure Container Registry
         run: |
