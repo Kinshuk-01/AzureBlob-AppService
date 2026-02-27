@@ -7,7 +7,6 @@ on:
       - develop
 
 env:
-  APP_NAME: ${{ vars.APP_NAME }}
   IMAGE_TAG: ${{ github.repository_id }}
 
 permissions:
