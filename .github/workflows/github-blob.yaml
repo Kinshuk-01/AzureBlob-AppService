@@ -9,7 +9,6 @@ on:
 env:
   APP_NAME: ${{ vars.APP_NAME }}
   IMAGE_TAG: ${{ github.repository_id }}
-  environment: ${{ github.ref_name == 'main' && 'UAT' || 'DEV' }}
 
 permissions:
     id-token: write
@@ -19,14 +18,15 @@ jobs:
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'main' && 'UAT' || 'DEV' }}
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
-
+        
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
+        
       - name: Azure Login (OIDC)
         uses: azure/login@v2
         with:
