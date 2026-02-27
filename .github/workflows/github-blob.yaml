@@ -7,7 +7,7 @@ on:
 env:
   APP_NAME: flask-app
   IMAGE_TAG: ${{ github.repository_id }}
-  TARGET_ENV: UAT
+  TARGET_ENV: ${{ vars.TARGET_ENV }}
 
 permissions:
     id-token: write
@@ -54,8 +54,7 @@ jobs:
     name: Smoke Test Image
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ github.TARGET_ENV == 'UAT' }}
-    environment: UAT
+    if: ${{ vars.TARGET_ENV == 'UAT' }}
 
     steps:
       - name: Checkout source code
