@@ -9,7 +9,6 @@ on:
 env:
   APP_NAME: ${{ secrets.APP_NAME }}
   IMAGE_TAG: ${{ github.repository_id }}
-  ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
 
 permissions:
     id-token: write
