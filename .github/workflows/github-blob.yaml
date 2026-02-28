@@ -116,6 +116,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: librarymanagement
-          images: $ACR_LOGIN_SERVER/${{ env.APP_NAME }}:${{ env.IMAGE_TAG }}
+          images: ${{ env.ACR_LOGIN_SERVER}}/${{ env.APP_NAME }}:${{ env.IMAGE_TAG }}
 
           
