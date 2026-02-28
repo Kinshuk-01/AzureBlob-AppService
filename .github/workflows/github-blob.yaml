@@ -10,6 +10,7 @@ env:
   APP_NAME: ${{ secrets.APP_NAME }}
   IMAGE_TAG: ${{ github.repository_id }}
 
+  
 permissions:
     id-token: write
     contents: read
