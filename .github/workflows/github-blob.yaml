@@ -117,5 +117,3 @@ jobs:
         with:
           app-name: librarymanagement
           images: ${{ env.ACR_LOGIN_SERVER}}/${{ env.APP_NAME }}:${{ env.IMAGE_TAG }}
-
-          
